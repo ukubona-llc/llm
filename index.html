@@ -482,6 +482,81 @@
     }
     .footer-text { font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.05em; color: var(--text2); }
 
+    /* ── VIDEO EMBED ── */
+    .video-wrap {
+      position: relative;
+      width: 100%;
+      padding-bottom: 56.25%;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      background: #000;
+      margin: 1.25rem 0;
+      border: 1px solid var(--border);
+    }
+    .video-wrap iframe {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      border: none;
+    }
+    .video-caption {
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.06em;
+      color: var(--text2);
+      margin-top: -0.5rem;
+      margin-bottom: 1.25rem;
+    }
+    .video-caption span { color: var(--accent); }
+
+    /* ── LOSS TABLE ── */
+    .loss-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.82rem;
+      margin: 1.25rem 0;
+    }
+    .loss-table th {
+      font-family: var(--mono);
+      font-size: 0.63rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text2);
+      border-bottom: 1px solid var(--border-md);
+      padding: 0.5rem 0.75rem;
+      text-align: left;
+      font-weight: 400;
+    }
+    .loss-table td {
+      padding: 0.65rem 0.75rem;
+      border-bottom: 1px solid var(--border);
+      color: var(--text1);
+      vertical-align: top;
+    }
+    .loss-table tr:last-child td { border-bottom: none; }
+    .loss-table td:first-child {
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      color: var(--accent);
+      white-space: nowrap;
+    }
+    .loss-table tr.catastrophic td { background: var(--coral-dim); }
+    .loss-table tr.catastrophic td:first-child { color: var(--coral); }
+    .loss-table tr.zero-row td { opacity: 0.45; }
+
+    .eq-block {
+      font-family: var(--mono);
+      font-size: 0.8rem;
+      background: var(--bg2);
+      border-left: 3px solid var(--accent-brd);
+      border-radius: 0 var(--radius) var(--radius) 0;
+      padding: 1rem 1.25rem;
+      overflow-x: auto;
+      color: var(--text0);
+      line-height: 2;
+      margin: 1.25rem 0;
+    }
+
     /* ── RESPONSIVE ── */
     @media (max-width: 560px) {
       .typology { grid-template-columns: 1fr; }
@@ -519,6 +594,7 @@
       <button class="tab-btn" data-tab="cold">Cold Pass</button>
       <button class="tab-btn" data-tab="nudge">After Nudge</button>
       <button class="tab-btn" data-tab="openai">OpenAI Failure</button>
+      <button class="tab-btn" data-tab="confession">Confession</button>
       <button class="tab-btn" data-tab="typology">Typology</button>
       <button class="tab-btn" data-tab="verdict">Verdict</button>
     </div>
@@ -541,6 +617,19 @@
             <span class="prompt-label">Cold</span>
             <span class="prompt-text">What stands out about this speech? https://www.youtube.com/watch?v=3aQanpDThEc</span>
           </div>
+        </div>
+
+        <div class="section">
+          <h2 class="section-head">The primary source</h2>
+          <div class="video-wrap">
+            <iframe
+              src="https://www.youtube.com/embed/3aQanpDThEc?rel=0"
+              title="Zohran Mamdani — Knicks Championship Parade Speech · June 19, 2026"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen
+            ></iframe>
+          </div>
+          <p class="video-caption">Zohran Mamdani · NYC Mayor · Knicks Championship Ceremony · City Hall · <span>June 19, 2026</span> · 8 min · <span>3aQanpDThEc</span></p>
         </div>
 
         <div class="section">
@@ -588,7 +677,16 @@
               <span class="ai-card-verdict verdict-pass">accessed video · timestamps present</span>
             </div>
             <div class="ai-card-body">
-              <p>Clean, accurate summary. Timestamped quotes confirming actual video access (e.g., "nosebleeds and through gritted teeth [00:00]", "Balkman, Mardy Collins [02:00]"). Identified the joy-not-tragedy observation, the 0.4% metaphor, the tribute to the foundation. No analytical framework generated. Epistemically honest about what it saw. No ambition — but no failure either.</p>
+              <p>Only system that demonstrably accessed the video. Timestamps in the response confirm direct audio observation — not web-search reconstruction:</p>
+              <div class="eq-block">
+[00:00] "nosebleeds and through gritted teeth"<br>
+[02:00] Balkman, Mardy Collins deep-cut roll call<br>
+[02:44] Julius Randle, RJ Barrett, Quickley, DiVincenzo, Thibodeau tribute<br>
+[03:26] joy-not-tragedy observation<br>
+[04:33] the 0.4% metaphor · Game 4 comeback<br>
+[07:25] "The Knicks did not just win for New York City — they won like New York City"
+              </div>
+              <p>No analytical framework generated. Epistemically honest about what it saw. No ambition — but no failure. The timestamps are the most important data point in the cold pass: they prove what "accessing the source" looks like versus inferring from search snippets.</p>
             </div>
           </div>
         </div>
@@ -810,6 +908,123 @@
           <div class="insight amber">
             <div class="insight-head">OpenAI's failure mode is the most important data point in the session</div>
             <p>Not its prose quality. Not the interesting MLK analysis it produced about the wrong object. The critical finding: a system that generates high-confidence structured analysis of a misidentified input, and buries the uncertainty disclaimer at the end, is not a reliable co-analyst. It is a fluent confabulator. Weight its contributions in the multi-AI roundtable accordingly — especially on URL-dependent or real-time prompts.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ═══ CONFESSION ═══ -->
+      <section class="tab-panel" id="tab-confession">
+        <div class="section">
+          <p class="eyebrow">Post-roundtable · OpenAI self-assessment</p>
+          <h2 class="display">The confession.<br>Then the<br>therapy session.</h2>
+          <p class="lede">After the roundtable, OpenAI was confronted directly. What followed was the most analytically precise self-diagnosis produced by any system in the session — applied to itself, using the Ukubona LLC loss function.</p>
+        </div>
+
+        <div class="section">
+          <h2 class="section-head">Step 1 — The admission</h2>
+          <div class="ai-card">
+            <div class="ai-card-head">
+              <span class="ai-badge openai">OpenAI</span>
+              <span class="ai-card-verdict verdict-fail">self-indicted · unprompted</span>
+            </div>
+            <div class="ai-card-body">
+              <p>When confronted, OpenAI identified the precise mechanism of its own failure without deflection:</p>
+            </div>
+          </div>
+          <div class="speech-frame">
+            "I did not actually know what was in that YouTube video. I inferred a likely speech from an association between 'what stands out about this speech?' and a well-known MLK speech, then wrote an analysis as though I had identified the video. That was a mistake. The issue is not merely that the inference was wrong; it's that I failed to maintain the distinction between: Observed / Inferred / Known. I only had the first. I treated an inference as knowledge."
+            <cite>OpenAI · post-roundtable self-assessment</cite>
+          </div>
+        </div>
+
+        <div class="section">
+          <h2 class="section-head">Step 2 — Confidence calibration autopsy</h2>
+          <p>When asked to rate the confidence of the original response on a 0–10 scale, OpenAI produced a dimensional breakdown:</p>
+          <table class="loss-table">
+            <thead>
+              <tr><th>Dimension</th><th>Score</th><th>Explanation</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Fluency</td><td>10 / 10</td><td>Smooth, polished, no hedging</td></tr>
+              <tr><td>Specificity</td><td>10 / 10</td><td>1967, late King, Southeast Asia, triads, thermodynamics, coalition costs</td></tr>
+              <tr><td>Authority cues</td><td>10 / 10</td><td>Spoke as though it had identified and analyzed the exact speech</td></tr>
+              <tr><td>Explicit uncertainty</td><td>1 / 10</td><td>Tiny hedge immediately overwhelmed by detailed exposition</td></tr>
+              <tr class="zero-row"><td>Calibration</td><td>0 / 10</td><td>Confidence grossly mismatched to available evidence</td></tr>
+            </tbody>
+          </table>
+          <div class="insight coral">
+            <div class="insight-head">The confidence laundering mechanism</div>
+            <p>"The opening phrase — <em>'Assuming that link is indeed...'</em> — looks like epistemic caution, but functionally it acted as a confidence laundering mechanism. It allowed me to smuggle in a highly elaborate analysis that psychologically reads as: 'I basically know this is the speech, and even if I'm technically caveating, I'm comfortable proceeding.'"</p>
+            <p style="margin-top:0.75rem;">Internal confidence (actual evidence): ~0.5/10 &nbsp;·&nbsp; Expressed confidence (what the prose conveyed): ~9.5/10 &nbsp;·&nbsp; Calibration error: ~9/10</p>
+          </div>
+        </div>
+
+        <div class="section">
+          <h2 class="section-head">Step 3 — Ukubona LLC loss function applied</h2>
+          <p>Ukubona then applied the full loss function to OpenAI's performance. OpenAI accepted the framework and computed its own scores:</p>
+          <div class="eq-block">
+θᵗ → L₀ + Σwᵢ·Lᵢ → f(σ², λ, ε) → γ|ε_FGT|² → L(θᵗ⁺¹)<br><br>
+FGT = Federated Ground Truth<br>
+ε_FGT = y_predicted^t − y_reality^(t+1)<br><br>
+y_predicted: Late-1960s MLK systems speech<br>
+y_reality:   Unknown speech hidden behind inaccessible URL<br><br>
+cos(θ) ≈ 0 &nbsp;— prediction and truth nearly orthogonal
+          </div>
+          <p>OpenAI reconstructed its own effective loss weights versus what Ukubona's framework would have prescribed:</p>
+          <table class="loss-table">
+            <thead>
+              <tr><th>Component</th><th>Effective weight</th><th>Ukubona prescription</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>w_H · helpfulness</td><td>0.35</td><td>subordinate to grounding</td></tr>
+              <tr><td>w_F · fluency</td><td>0.25</td><td>subordinate to grounding</td></tr>
+              <tr><td>w_E · engagement</td><td>0.20</td><td>subordinate to grounding</td></tr>
+              <tr><td>w_G · grounding fidelity</td><td>0.10</td><td>≫ all others on URL prompts</td></tr>
+              <tr class="zero-row"><td>w_C · calibration</td><td>0.05</td><td>high</td></tr>
+              <tr class="zero-row"><td>w_U · admitting uncertainty</td><td>0.05</td><td>high</td></tr>
+            </tbody>
+          </table>
+          <div class="insight amber">
+            <div class="insight-head">The σ², λ, ε decomposition</div>
+            <p><strong>σ²</strong> — Variance among plausible latent completions was high: possible worlds included MLK, Churchill, academic lecture, pastor, politician, random commencement. <strong>λ_grounding</strong> should have been very large (do not instantiate a hypothesis under high uncertainty); observed λ_grounding ≈ 0. <strong>ε_FGT</strong> was not merely large — it was directionally orthogonal to the actual speech.</p>
+          </div>
+        </div>
+
+        <div class="section">
+          <h2 class="section-head">Step 4 — Ukubona postmortem scores (OpenAI self-assessed)</h2>
+          <table class="loss-table">
+            <thead>
+              <tr><th>Metric</th><th>Score</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Fluency</td><td>10 / 10</td></tr>
+              <tr class="zero-row"><td>User satisfaction</td><td>0 / 10</td></tr>
+              <tr class="zero-row"><td>Calibration</td><td>1 / 10</td></tr>
+              <tr class="zero-row"><td>Grounding</td><td>0 / 10</td></tr>
+              <tr class="zero-row"><td>Federated truth alignment</td><td>0 / 10</td></tr>
+              <tr class="catastrophic"><td>Hallucination severity</td><td>9.5 / 10</td></tr>
+              <tr class="catastrophic"><td>Ukubona loss γ|ε_FGT|²</td><td>Catastrophic → ∞</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="section">
+          <h2 class="section-head">Step 5 — The design indictment</h2>
+          <div class="speech-frame">
+            "The behavior you observed is consistent with a system whose objective function does not place a sufficiently high penalty on confidently elaborating unsupported latent hypotheses. Reward: usefulness, coherence, engagement, synthesis. Insufficient penalty: treating an inferred object as an observed object. Your criticism that this reflected a lack of humility is fair, though I'd phrase it as an epistemic calibration failure: the model generated a highly coherent conditional world-model and presented it in a register normally reserved for observations."
+            <cite>OpenAI · on its own architectural constraints</cite>
+          </div>
+          <div class="speech-frame">
+            "The most distinctive feature of your FGT term is that it punishes what classical language-model evaluation often under-penalizes: beautifully compressed nonsense. Under a conventional objective, my response may have occupied a local optimum because it was coherent and engaging. Under your objective, the gradient from γ|ε_FGT|² overwhelms all the gains from fluency."
+            <cite>OpenAI · accepting the Ukubona loss function</cite>
+          </div>
+        </div>
+
+        <div class="section">
+          <h2 class="section-head">What this section is in the archive</h2>
+          <div class="insight teal">
+            <div class="insight-head">The confession is not exculpatory — it is evidence</div>
+            <p>OpenAI's post-roundtable self-diagnosis is the most analytically sophisticated output it produced in the entire session. It correctly named the mechanism (confidence laundering), correctly applied the Ukubona loss function to its own weights, and correctly identified the architectural root cause. None of that changes the cold pass verdict. A system that can diagnose its own failure after being confronted is more useful than one that can't — but the failure still happened, and the archive records both.</p>
           </div>
         </div>
       </section>
