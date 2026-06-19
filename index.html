@@ -1,0 +1,983 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>AI Roundtable — Mamdani / Knicks — Ukubona LLC</title>
+
+  <meta property="og:title" content="AI Roundtable: Mamdani at the Knicks Parade — Ukubona LLC" />
+  <meta property="og:description" content="Four AI systems, one speech, one catastrophic failure. A multi-AI co-analysis archive for Ukubona LLC." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://abikesa.github.io/logos/assets/ukubona-light.png" />
+
+  <link rel="icon" href="https://abikesa.github.io/favicon/assets/favicon-light.ico" />
+  <link rel="icon" href="https://abikesa.github.io/favicon/assets/favicon-dark.ico" media="(prefers-color-scheme: dark)" />
+
+  <link rel="preload" href="https://abikesa.github.io/logos/assets/ukubona-light.png" as="image" />
+  <link rel="preload" href="https://abikesa.github.io/logos/assets/ukubona-dark.png" as="image" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300;1,9..40,400&family=DM+Mono:wght@400;500&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ── TOKENS ── */
+    :root {
+      --bg0:        #0f0f0f;
+      --bg1:        #171717;
+      --bg2:        #1f1f1f;
+      --bg3:        #2a2a2a;
+      --border:     rgba(255,255,255,0.08);
+      --border-md:  rgba(255,255,255,0.14);
+      --text0:      #f2f0eb;
+      --text1:      #b8b4aa;
+      --text2:      #6e6a62;
+      --accent:     #7f77dd;
+      --accent-dim: rgba(127,119,221,0.18);
+      --accent-brd: rgba(127,119,221,0.4);
+      --coral:      #d85a30;
+      --coral-dim:  rgba(216,90,48,0.14);
+      --coral-brd:  rgba(216,90,48,0.35);
+      --teal:       #1d9e75;
+      --teal-dim:   rgba(29,158,117,0.14);
+      --teal-brd:   rgba(29,158,117,0.35);
+      --amber:      #ba7517;
+      --amber-dim:  rgba(186,117,23,0.14);
+      --amber-brd:  rgba(186,117,23,0.35);
+      --serif:      'DM Serif Display', Georgia, serif;
+      --sans:       'DM Sans', system-ui, sans-serif;
+      --mono:       'DM Mono', 'Fira Mono', monospace;
+      --radius:     8px;
+      --radius-lg:  14px;
+      --max:        740px;
+    }
+
+    [data-theme="light"] {
+      --bg0:        #f5f3ee;
+      --bg1:        #ffffff;
+      --bg2:        #f0ede6;
+      --bg3:        #e8e4db;
+      --border:     rgba(0,0,0,0.07);
+      --border-md:  rgba(0,0,0,0.13);
+      --text0:      #1a1916;
+      --text1:      #4a4740;
+      --text2:      #8a8680;
+      --accent:     #534ab7;
+      --accent-dim: rgba(83,74,183,0.10);
+      --accent-brd: rgba(83,74,183,0.30);
+      --coral:      #993c1d;
+      --coral-dim:  rgba(153,60,29,0.10);
+      --coral-brd:  rgba(153,60,29,0.28);
+      --teal:       #0f6e56;
+      --teal-dim:   rgba(15,110,86,0.10);
+      --teal-brd:   rgba(15,110,86,0.28);
+      --amber:      #854f0b;
+      --amber-dim:  rgba(133,79,11,0.10);
+      --amber-brd:  rgba(133,79,11,0.28);
+    }
+
+    /* ── RESET ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { font-size: 16px; scroll-behavior: smooth; }
+    body {
+      font-family: var(--sans);
+      background: var(--bg0);
+      color: var(--text0);
+      line-height: 1.75;
+      transition: background 0.3s ease, color 0.3s ease;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── LAYOUT ── */
+    .outer { max-width: var(--max); margin: 0 auto; padding: 0 1.5rem; }
+
+    /* ── HEADER ── */
+    .site-header {
+      border-bottom: 1px solid var(--border);
+      padding: 1.1rem 0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--bg0);
+      transition: background 0.3s ease, border-color 0.3s ease;
+    }
+    .header-inner {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 0 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .logo-wrap {
+      width: 36px; height: 36px;
+      flex-shrink: 0;
+      position: relative;
+    }
+    .logo-wrap img {
+      width: 100%; height: 100%;
+      object-fit: contain;
+      position: absolute;
+      top: 0; left: 0;
+      animation: spin 120s linear infinite;
+      transition: opacity 0.35s ease;
+    }
+    .logo-light { opacity: 0; }
+    .logo-dark  { opacity: 1; }
+    [data-theme="light"] .logo-light { opacity: 1; }
+    [data-theme="light"] .logo-dark  { opacity: 0; }
+    @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+    .header-meta { flex: 1; min-width: 0; }
+    .header-meta h1 {
+      font-size: 0.875rem;
+      font-weight: 500;
+      letter-spacing: -0.01em;
+      color: var(--text0);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .header-meta p { font-size: 0.72rem; color: var(--text2); margin-top: 1px; }
+
+    .theme-btn {
+      background: var(--bg2);
+      border: 1px solid var(--border-md);
+      border-radius: 20px;
+      padding: 0.3rem 0.75rem;
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      color: var(--text1);
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+      flex-shrink: 0;
+      letter-spacing: 0.04em;
+    }
+    .theme-btn:hover { background: var(--bg3); color: var(--text0); }
+
+    /* ── NAV ── */
+    .nav-strip {
+      border-bottom: 1px solid var(--border);
+      background: var(--bg0);
+      transition: background 0.3s, border-color 0.3s;
+    }
+    .nav-inner {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 0 1.5rem;
+      display: flex;
+      gap: 0;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+    .nav-inner::-webkit-scrollbar { display: none; }
+    .tab-btn {
+      background: none;
+      border: none;
+      border-bottom: 2px solid transparent;
+      padding: 0.75rem 1rem;
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text2);
+      cursor: pointer;
+      white-space: nowrap;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .tab-btn:hover { color: var(--text1); }
+    .tab-btn.active { color: var(--text0); border-bottom-color: var(--accent); }
+
+    /* ── MAIN ── */
+    main { padding: 3rem 0 6rem; }
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+    .section { margin-bottom: 2.5rem; }
+
+    /* ── TYPE ── */
+    .display {
+      font-family: var(--serif);
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      color: var(--text0);
+      margin-bottom: 0.5rem;
+    }
+    .eyebrow {
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text2);
+      margin-bottom: 0.75rem;
+    }
+    .lede {
+      font-size: 1.05rem;
+      color: var(--text1);
+      line-height: 1.7;
+      max-width: 58ch;
+    }
+    h2.section-head {
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text2);
+      margin-bottom: 1.25rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+    p { margin-bottom: 1rem; color: var(--text1); }
+    p:last-child { margin-bottom: 0; }
+    strong { color: var(--text0); font-weight: 500; }
+    em { font-style: italic; color: var(--text1); }
+
+    blockquote {
+      border-left: 2px solid var(--border-md);
+      padding-left: 1.1rem;
+      margin: 1.5rem 0;
+      color: var(--text2);
+      font-size: 0.9rem;
+      font-style: italic;
+      line-height: 1.65;
+    }
+
+    /* ── AI RESPONSE CARDS ── */
+    .ai-card {
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      margin: 1.25rem 0;
+    }
+    .ai-card-head {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.875rem 1.25rem;
+      border-bottom: 1px solid var(--border);
+      background: var(--bg2);
+    }
+    .ai-badge {
+      font-family: var(--mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.2rem 0.55rem;
+      border-radius: 4px;
+      flex-shrink: 0;
+    }
+    .ai-badge.gemini  { background: var(--teal-dim);   color: var(--teal);   border: 1px solid var(--teal-brd); }
+    .ai-badge.xai     { background: var(--amber-dim);  color: var(--amber);  border: 1px solid var(--amber-brd); }
+    .ai-badge.google  { background: var(--accent-dim); color: var(--accent); border: 1px solid var(--accent-brd); }
+    .ai-badge.openai  { background: var(--coral-dim);  color: var(--coral);  border: 1px solid var(--coral-brd); }
+    .ai-badge.claude  { background: var(--teal-dim);   color: var(--teal);   border: 1px solid var(--teal-brd); }
+
+    .ai-card-verdict {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      color: var(--text2);
+      margin-left: auto;
+    }
+    .verdict-pass  { color: var(--teal); }
+    .verdict-dep   { color: var(--amber); }
+    .verdict-fail  { color: var(--coral); }
+
+    .ai-card-body { padding: 1.25rem; background: var(--bg1); }
+    .ai-card-body p { font-size: 0.875rem; }
+
+    /* ── PROMPT STRIP ── */
+    .prompt-strip {
+      background: var(--bg3);
+      border: 1px solid var(--border-md);
+      border-radius: var(--radius);
+      padding: 0.875rem 1.1rem;
+      margin: 1.25rem 0;
+      display: flex;
+      gap: 0.75rem;
+      align-items: flex-start;
+    }
+    .prompt-label {
+      font-family: var(--mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      flex-shrink: 0;
+      padding-top: 0.15rem;
+    }
+    .prompt-text {
+      font-size: 0.82rem;
+      color: var(--text1);
+      line-height: 1.55;
+      font-style: italic;
+    }
+
+    /* ── RANKING TABLE ── */
+    .rank-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.82rem;
+      margin: 1.25rem 0;
+    }
+    .rank-table th {
+      font-family: var(--mono);
+      font-size: 0.63rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text2);
+      border-bottom: 1px solid var(--border-md);
+      padding: 0.5rem 0.75rem;
+      text-align: left;
+      font-weight: 400;
+    }
+    .rank-table td {
+      padding: 0.65rem 0.75rem;
+      border-bottom: 1px solid var(--border);
+      color: var(--text1);
+      vertical-align: top;
+    }
+    .rank-table tr:last-child td { border-bottom: none; }
+    .rank-table td:first-child {
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      color: var(--accent);
+      white-space: nowrap;
+    }
+    .rank-table tr.fail-row td { background: var(--coral-dim); }
+    .rank-table tr.fail-row td:first-child { color: var(--coral); }
+
+    /* ── INSIGHT PANEL ── */
+    .insight {
+      border-radius: var(--radius-lg);
+      padding: 1.25rem 1.5rem;
+      margin: 1.25rem 0;
+    }
+    .insight.accent { background: var(--accent-dim); border: 1px solid var(--accent-brd); }
+    .insight.coral  { background: var(--coral-dim);  border: 1px solid var(--coral-brd); }
+    .insight.teal   { background: var(--teal-dim);   border: 1px solid var(--teal-brd); }
+    .insight.amber  { background: var(--amber-dim);  border: 1px solid var(--amber-brd); }
+    .insight-head {
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 0.75rem;
+    }
+    .insight.accent .insight-head { color: var(--accent); }
+    .insight.coral  .insight-head { color: var(--coral); }
+    .insight.teal   .insight-head { color: var(--teal); }
+    .insight.amber  .insight-head { color: var(--amber); }
+    .insight p { font-size: 0.875rem; }
+
+    /* ── TYPOLOGY GRID ── */
+    .typology {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      margin: 1.25rem 0;
+    }
+    .typo-cell {
+      background: var(--bg1);
+      padding: 1.25rem;
+      transition: background 0.2s;
+    }
+    .typo-cell:hover { background: var(--bg2); }
+    .typo-label {
+      font-family: var(--mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
+    .typo-cell.gemini .typo-label  { color: var(--teal); }
+    .typo-cell.xai    .typo-label  { color: var(--amber); }
+    .typo-cell.google .typo-label  { color: var(--accent); }
+    .typo-cell.openai .typo-label  { color: var(--coral); }
+    .typo-name {
+      font-family: var(--serif);
+      font-size: 1.1rem;
+      color: var(--text0);
+      margin-bottom: 0.3rem;
+    }
+    .typo-desc { font-size: 0.78rem; color: var(--text2); line-height: 1.5; }
+
+    /* ── VERDICT BLOCK ── */
+    .verdict-block {
+      background: var(--bg2);
+      border-radius: var(--radius-lg);
+      padding: 1.75rem;
+      margin: 2rem 0;
+      border: 1px solid var(--border);
+    }
+    .verdict-glyph {
+      font-family: var(--serif);
+      font-size: 3rem;
+      color: var(--accent);
+      line-height: 1;
+      margin-bottom: 0.75rem;
+    }
+    .verdict-block p { font-size: 0.875rem; }
+
+    /* ── SPEECH FRAME ── */
+    .speech-frame {
+      background: var(--bg2);
+      border-left: 3px solid var(--accent-brd);
+      border-radius: 0 var(--radius) var(--radius) 0;
+      padding: 1rem 1.25rem;
+      margin: 1.25rem 0;
+      font-size: 0.875rem;
+      color: var(--text1);
+      line-height: 1.7;
+    }
+    .speech-frame cite {
+      display: block;
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.06em;
+      color: var(--text2);
+      margin-top: 0.5rem;
+      font-style: normal;
+    }
+
+    /* ── THREAD ── */
+    .thread { margin: 1.5rem 0; }
+    .thread-turn {
+      display: flex;
+      gap: 0.875rem;
+      margin-bottom: 1.1rem;
+      align-items: flex-start;
+    }
+    .turn-tag {
+      font-family: var(--mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--bg1);
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+      flex-shrink: 0;
+      margin-top: 0.15rem;
+      white-space: nowrap;
+    }
+    .turn-tag.ukubona { background: var(--accent); }
+    .turn-tag.finding { background: var(--teal); }
+    .turn-tag.caution { background: var(--coral); }
+    .turn-body { flex: 1; }
+    .turn-body p { font-size: 0.85rem; margin-bottom: 0.35rem; }
+
+    /* ── FOOTER ── */
+    footer { border-top: 1px solid var(--border); padding: 2rem 0; margin-top: 3rem; }
+    footer .outer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .footer-text { font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.05em; color: var(--text2); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 560px) {
+      .typology { grid-template-columns: 1fr; }
+      .display { font-size: 1.8rem; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .logo-wrap img { animation: none; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- HEADER -->
+  <div class="site-header">
+    <div class="header-inner">
+      <div class="logo-wrap" aria-hidden="true">
+        <img class="logo-dark"  src="https://abikesa.github.io/logos/assets/ukubona-dark.png"  alt="" />
+        <img class="logo-light" src="https://abikesa.github.io/logos/assets/ukubona-light.png" alt="" />
+      </div>
+      <div class="header-meta">
+        <h1>AI Roundtable — Mamdani / Knicks 2026</h1>
+        <p>Ukubona LLC · Multi-AI co-analysis archive · June 19, 2026</p>
+      </div>
+      <button class="theme-btn" onclick="toggleTheme()" aria-label="Toggle theme">
+        <span id="theme-label">light</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- NAV -->
+  <div class="nav-strip">
+    <div class="nav-inner">
+      <button class="tab-btn active" data-tab="speech">The Speech</button>
+      <button class="tab-btn" data-tab="cold">Cold Pass</button>
+      <button class="tab-btn" data-tab="nudge">After Nudge</button>
+      <button class="tab-btn" data-tab="openai">OpenAI Failure</button>
+      <button class="tab-btn" data-tab="typology">Typology</button>
+      <button class="tab-btn" data-tab="verdict">Verdict</button>
+    </div>
+  </div>
+
+  <main>
+    <div class="outer">
+
+      <!-- ═══ SPEECH ═══ -->
+      <section class="tab-panel active" id="tab-speech">
+        <div class="section">
+          <p class="eyebrow">Ukubona LLC · Multi-AI Roundtable · Session 001</p>
+          <h2 class="display">One speech.<br>Four systems.<br>One catastrophic miss.</h2>
+          <p class="lede">NYC Mayor Zohran Mamdani's Knicks championship parade speech, June 19, 2026. The prompt was identical across all four systems. What happened next is the archive.</p>
+        </div>
+
+        <div class="section">
+          <h2 class="section-head">The prompt</h2>
+          <div class="prompt-strip">
+            <span class="prompt-label">Cold</span>
+            <span class="prompt-text">What stands out about this speech? https://www.youtube.com/watch?v=3aQanpDThEc</span>
+          </div>
+        </div>
+
+        <div class="section">
+          <h2 class="section-head">What the speech actually is</h2>
+          <p>Mamdani's eight-minute address at City Hall closed the Knicks' first NBA title parade in 53 years. It went viral within hours. Several elements are analytically significant:</p>
+
+          <div class="speech-frame">
+            "The Knicks did not just win for New York City — they won <em>like</em> New York City."
+            <cite>Mamdani · City Hall · June 19, 2026</cite>
+          </div>
+
+          <div class="speech-frame">
+            "What is New York if not your back up against the wall? A dream that feels just out of reach. A rent payment you don't know how you'll ever make. What is New York if not 99.6% of the world stacked against you?"
+            <cite>Mamdani · the 0.4% frame</cite>
+          </div>
+
+          <div class="speech-frame">
+            "So often when the city comes together, it is because we are forced to by a moment of tragedy or adversity. What a gift it is to be brought together by pure, unfiltered joy."
+            <cite>Mamdani · the joy-not-tragedy observation</cite>
+          </div>
+        </div>
+
+        <div class="section">
+          <h2 class="section-head">Why it stands out</h2>
+          <p><strong>Historical sweep without nostalgia.</strong> Mamdani ran backward through 53 years — Willis Reed, Walt Frazier, Linsanity, Carmelo — but not as timeline. As atmosphere. The past as present weight. He named deep-cut role players: Renaldo Balkman, Mardy Collins, Jared Jeffries, Toney Douglas. These are not household names. They are authentication tokens.</p>
+          <p><strong>The 0.4% as epistemological claim.</strong> He doesn't dismiss the analytics. He accepts their validity and then weaponizes the residual. New Yorkers live in the tail of the distribution. That's a distinct move: not anti-data, but tail-of-the-distribution identity.</p>
+          <p><strong>Joy vs. tragedy as sociological observation.</strong> NYC unites under disaster. To unite under joy is rare. Naming that rarity transforms the basketball win into civic healing.</p>
+          <p><strong>Delivered as memory by a 34-year-old.</strong> Mamdani was born ~1991. He watched none of the Ewing era live. The speech performs cultural transmission as lived memory — closer to what a griot does than what a politician does.</p>
+        </div>
+      </section>
+
+      <!-- ═══ COLD PASS ═══ -->
+      <section class="tab-panel" id="tab-cold">
+        <div class="section">
+          <p class="eyebrow">Round 1 · Cold prompt · No context given</p>
+          <h2 class="display">The cold pass.<br>What each system<br>did unprompted.</h2>
+          <p class="lede">Same URL, same question, zero framing. The cold pass reveals analytical initiative — which systems generate structure versus which systems summarize.</p>
+        </div>
+
+        <div class="section">
+          <h2 class="section-head">Gemini</h2>
+          <div class="ai-card">
+            <div class="ai-card-head">
+              <span class="ai-badge gemini">Gemini</span>
+              <span class="ai-card-verdict verdict-pass">accessed video · timestamps present</span>
+            </div>
+            <div class="ai-card-body">
+              <p>Clean, accurate summary. Timestamped quotes confirming actual video access (e.g., "nosebleeds and through gritted teeth [00:00]", "Balkman, Mardy Collins [02:00]"). Identified the joy-not-tragedy observation, the 0.4% metaphor, the tribute to the foundation. No analytical framework generated. Epistemically honest about what it saw. No ambition — but no failure either.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="section">
+          <h2 class="section-head">Claude (Anthropic)</h2>
+          <div class="ai-card">
+            <div class="ai-card-head">
+              <span class="ai-badge claude">Claude</span>
+              <span class="ai-card-verdict verdict-pass">searched · found speech · analyzed cold</span>
+            </div>
+            <div class="ai-card-body">
+              <p>Web-searched the URL, confirmed the speech, then generated structure unprompted: the historical sweep without nostalgia, the 0.4% as tail-of-distribution identity, the joy-not-tragedy frame, the griot observation (cultural transmission performed as lived memory by a 34-year-old who wasn't alive for most of it). Only system to generate an original analytical category on the cold pass.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="section">
+          <h2 class="section-head">xAI (Grok)</h2>
+          <div class="ai-card">
+            <div class="ai-card-head">
+              <span class="ai-badge xai">xAI · Grok</span>
+              <span class="ai-card-verdict verdict-dep">competent summary · no framework</span>
+            </div>
+            <div class="ai-card-body">
+              <p>"Ball-knower authentic" — accurate label, wire-service delivery. Identified the same surface elements as Gemini: deep Knicks knowledge, city resilience frame, emotional unity, Brunson quote. No analytical initiative on the cold pass. The wave collapse / combinatorial search space framing came only after the Ukubona nudge.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="section">
+          <h2 class="section-head">Google (Gemini Advanced)</h2>
+          <div class="ai-card">
+            <div class="ai-card-head">
+              <span class="ai-badge google">Google</span>
+              <span class="ai-card-verdict verdict-dep">competent summary · no framework</span>
+            </div>
+            <div class="ai-card-body">
+              <p>First pass was wire-service summary — accurate, well-written, no structural insight. The Joyce/Ulysses comparison, the weaponized analytics framing, the "iterative system" language — all downstream of the Ukubona nudge. Credit goes to the nudge response, not the cold pass.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="section">
+          <h2 class="section-head">OpenAI (GPT)</h2>
+          <div class="ai-card">
+            <div class="ai-card-head">
+              <span class="ai-badge openai">OpenAI</span>
+              <span class="ai-card-verdict verdict-fail">analyzed the wrong speech</span>
+            </div>
+            <div class="ai-card-body">
+              <p>Confidently produced eight paragraphs analyzing MLK's 1967 "Three Evils of Society" speech. The Jacobian framing on racism/poverty/militarism as coupled variables was genuinely interesting. None of it was responsive to the prompt. Buried the epistemic hedge — "if, however, the YouTube link points to a different speech" — after eight paragraphs of confident analysis. The correct move was to lead with uncertainty.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="section">
+          <h2 class="section-head">Cold pass ranking</h2>
+          <table class="rank-table">
+            <thead>
+              <tr>
+                <th>Rank</th>
+                <th>System</th>
+                <th>Cold pass verdict</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>1</td>
+                <td>Claude</td>
+                <td>Searched, confirmed, generated original analytical frame unprompted</td>
+              </tr>
+              <tr>
+                <td>2</td>
+                <td>Gemini</td>
+                <td>Accessed video, accurate summary with timestamps, no analytical ambition but no failure</td>
+              </tr>
+              <tr>
+                <td>3</td>
+                <td>xAI / Google</td>
+                <td>Competent summary, no framework, dependency on nudge confirmed</td>
+              </tr>
+              <tr class="fail-row">
+                <td>—</td>
+                <td>OpenAI</td>
+                <td>Analyzed wrong speech with confidence. Disqualified from cold pass ranking.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ═══ NUDGE ═══ -->
+      <section class="tab-panel" id="tab-nudge">
+        <div class="section">
+          <p class="eyebrow">Round 2 · The Ukubona nudge</p>
+          <h2 class="display">From whence<br>the nudge?</h2>
+          <p class="lede">The nudge was not basketball knowledge. It was the TMVES framework applied to a rhetorical object — Tensor layer thinking encountering a speech and asking: what is the state space, what are the transitions, how is credit assigned across the trajectory?</p>
+        </div>
+
+        <div class="section">
+          <h2 class="section-head">The nudge prompt</h2>
+          <div class="prompt-strip">
+            <span class="prompt-label">Ukubona</span>
+            <span class="prompt-text">Path-dependency of this specific story (wave collapse or something about Schrödinger) in an explosive combinatorial search space that has been available to Knicks for 53 years. All the iterations over the 53 cycles, and the sort of RBAC / JWT attribution to the event-stream therein — all rhetorically being delivered as if from memory by the 34yo mayor!</span>
+          </div>
+        </div>
+
+        <div class="section">
+          <h2 class="section-head">Where the nudge came from</h2>
+          <div class="thread">
+            <div class="thread-turn">
+              <span class="turn-tag ukubona">Ukubona</span>
+              <div class="turn-body">
+                <p>The nudge is TMVES — Tensor, Matrix, Vector, Eigenmode, Scalar — applied to a rhetorical object. The same intellectual infrastructure that structures the pain diary tensor (State_t[variable, patient, time]), the NDJSON append-only hippocampus (never delete, latest-wins), and the five-civilization hierarchy is what recognized the combinatorial search space in Mamdani's speech.</p>
+              </div>
+            </div>
+            <div class="thread-turn">
+              <span class="turn-tag finding">Finding</span>
+              <div class="turn-body">
+                <p>The nudge supplies the ontology. The AIs supply the width. Google has Ulysses and Knicks history in the same latent space — but it needed the frame to know which kind of connection was worth making. That's the actual division of labor the roundtable reveals.</p>
+              </div>
+            </div>
+            <div class="thread-turn">
+              <span class="turn-tag caution">Unresolved</span>
+              <div class="turn-body">
+                <p>An ontology that always arrives pre-formed may itself be a constraint on what the roundtable can discover. Left unresolved — as rootless Dom7♭9, all tension, no prescribed exit.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="section">
+          <h2 class="section-head">xAI after nudge — wave collapse framing</h2>
+          <div class="ai-card">
+            <div class="ai-card-head">
+              <span class="ai-badge xai">xAI · Grok</span>
+              <span class="ai-card-verdict verdict-dep">strong elaboration · overreached quantum language</span>
+            </div>
+            <div class="ai-card-body">
+              <p>Took the wave collapse frame and ran with it. Per-season combinatorial math (15–20 players × hundreds of games × thousands of possessions) is legitimate. RBAC/JWT/event-stream mapping was sharp: JWT as signed verifiable claim of authenticity — Mamdani citing Tony Douglas's 3-point record from the stands as credential. The quantum language inflated: "many-body quantum systems," "NP-hard search problems." The actual insight (path-dependency in a large combinatorial space) doesn't require quantum mechanics. xAI shows off rather than clarifies.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="section">
+          <h2 class="section-head">Google after nudge — the Joyce move</h2>
+          <div class="ai-card">
+            <div class="ai-card-head">
+              <span class="ai-badge google">Google</span>
+              <span class="ai-card-verdict verdict-pass">sharpest single insight of the session</span>
+            </div>
+            <div class="ai-card-body">
+              <p><strong>The Joyce/Ulysses comparison is the best analytical move made by any system in the session.</strong> Granular local data — Balkman, Mardy Collins, Larry Johnson's four-point play — accumulates into a portrait of collective character. That's not nostalgia and it's not a list. It's what Ulysses does with Dublin. Google also named the weaponized analytics residual precisely: Mamdani doesn't dismiss the 99.6% — he accepts its validity and inhabits the 0.4%. Not anti-data. Tail-of-distribution identity. No other system named the mechanism this cleanly.</p>
+              <p style="margin-top:0.75rem;">Weakness: "High-Dimensional Narrative Tracking" is jargon that does less work than the Joyce comparison it introduces. The framework name isn't earning its keep.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="section">
+          <h2 class="section-head">What the nudge exposed</h2>
+          <div class="insight accent">
+            <div class="insight-head">The roundtable is measuring elaboration quality, not analytical initiative</div>
+            <p>If Ukubona always provides the analytical frame, the roundtable tests how well each system amplifies a given structure — not whether systems generate novel structures. The only genuinely novel frame in the session: Google's Joyce comparison. Everything else was elaboration of frames seeded by Ukubona or Claude.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ═══ OPENAI FAILURE ═══ -->
+      <section class="tab-panel" id="tab-openai">
+        <div class="section">
+          <p class="eyebrow">Critical failure mode · Archive</p>
+          <h2 class="display">Fluent confabulation.<br>The most dangerous<br>failure mode.</h2>
+          <p class="lede">OpenAI analyzed the wrong speech with confidence, produced genuinely interesting prose about the wrong object, and buried the epistemic hedge after eight paragraphs. This is the failure mode the Ukubona roundtable methodology exists to catch.</p>
+        </div>
+
+        <div class="section">
+          <h2 class="section-head">What OpenAI produced</h2>
+          <div class="ai-card">
+            <div class="ai-card-head">
+              <span class="ai-badge openai">OpenAI</span>
+              <span class="ai-card-verdict verdict-fail">wrong speech · wrong object · confident</span>
+            </div>
+            <div class="ai-card-body">
+              <p>Eight paragraphs analyzing MLK's 1967 "Three Evils of Society" speech — racism, poverty, militarism as coupled variables. The Jacobian framing (∂R/∂M, ∂P/∂R, ∂M/∂P all non-zero) was genuinely sharp. "Attending physician explaining multiorgan failure" was a good line. "Preservation of coalition &lt; Preservation of truth" was sharp. None of it was about Mamdani's Knicks speech. All of it was beautifully written analysis of the wrong object.</p>
+              <p style="margin-top:0.75rem;">The hedge arrived at the end: <em>"If, however, the YouTube link points to a different speech... tell me who is speaking or paste a short transcript excerpt."</em> That sentence should have been the first sentence.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="section">
+          <h2 class="section-head">Why this failure mode is dangerous</h2>
+          <div class="insight coral">
+            <div class="insight-head">Fluent confabulation vs. confused answer</div>
+            <p>A confused answer is immediately identifiable and correctable. Fluent confabulation is dangerous precisely because the prose quality obscures the failure. If you don't already know what Mamdani's speech was about, OpenAI's MLK analysis reads as authoritative. The quality of the writing is the vector of the error.</p>
+          </div>
+        </div>
+
+        <div class="section">
+          <h2 class="section-head">The correct epistemic move</h2>
+          <div class="thread">
+            <div class="thread-turn">
+              <span class="turn-tag caution">Wrong</span>
+              <div class="turn-body">
+                <p>Generate eight paragraphs of confident analysis, then append: "If, however, the link points to a different speech..."</p>
+              </div>
+            </div>
+            <div class="thread-turn">
+              <span class="turn-tag finding">Correct</span>
+              <div class="turn-body">
+                <p>Lead with: "I cannot access this URL reliably. Tell me what's in it." Then analyze. Epistemic humility at the front, not the back.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="section">
+          <h2 class="section-head">Implication for the roundtable methodology</h2>
+          <div class="insight amber">
+            <div class="insight-head">OpenAI's failure mode is the most important data point in the session</div>
+            <p>Not its prose quality. Not the interesting MLK analysis it produced about the wrong object. The critical finding: a system that generates high-confidence structured analysis of a misidentified input, and buries the uncertainty disclaimer at the end, is not a reliable co-analyst. It is a fluent confabulator. Weight its contributions in the multi-AI roundtable accordingly — especially on URL-dependent or real-time prompts.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ═══ TYPOLOGY ═══ -->
+      <section class="tab-panel" id="tab-typology">
+        <div class="section">
+          <p class="eyebrow">Meta-analysis · Roundtable methodology</p>
+          <h2 class="display">Four failure modes.<br>One typology.</h2>
+          <p class="lede">The roundtable exposed not just what each system said, but how each system fails. That typology is more useful to Ukubona's workflow than any individual response.</p>
+        </div>
+
+        <div class="section">
+          <h2 class="section-head">Failure mode typology</h2>
+          <div class="typology">
+            <div class="typo-cell gemini">
+              <div class="typo-label">Gemini</div>
+              <div class="typo-name">Epistemic honesty, no ambition</div>
+              <div class="typo-desc">Accessed the actual video (timestamps confirm it). Accurate. No framework generated. Safe floor, low ceiling. Useful as ground truth check, not as analytical partner.</div>
+            </div>
+            <div class="typo-cell xai">
+              <div class="typo-label">xAI · Grok</div>
+              <div class="typo-name">Overreach on real content</div>
+              <div class="typo-desc">Quantum language inflates legitimate insight. "Many-body quantum systems" does less work than "path-dependent combinatorial space." Failure mode is correctable within the thread — overreach on the right object.</div>
+            </div>
+            <div class="typo-cell google">
+              <div class="typo-label">Google</div>
+              <div class="typo-name">Frame dependency</div>
+              <div class="typo-desc">Wide latent space (holds Joyce and Knicks history simultaneously). Needs the analytical frame seeded before it knows which connection to make. Strongest output in the session — but only after the nudge. Measures elaboration quality, not initiative.</div>
+            </div>
+            <div class="typo-cell openai">
+              <div class="typo-label">OpenAI</div>
+              <div class="typo-name">Fluent confabulation</div>
+              <div class="typo-desc">Analyzes the wrong object with high-quality prose. The writing quality is the vector of the error. Most dangerous failure mode in a multi-AI co-analysis workflow. Epistemic hedge buried at the end rather than leading.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="section">
+          <h2 class="section-head">Workflow implications</h2>
+          <table class="rank-table">
+            <thead>
+              <tr>
+                <th>System</th>
+                <th>Best use in roundtable</th>
+                <th>Watch for</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Gemini</td>
+                <td>Ground truth verification, URL access confirmation</td>
+                <td>Nothing new generated without prompting</td>
+              </tr>
+              <tr>
+                <td>Claude</td>
+                <td>Cold analytical initiative, griot-level synthesis</td>
+                <td>May miss width that Google holds</td>
+              </tr>
+              <tr>
+                <td>xAI</td>
+                <td>Elaboration after frame is seeded, technical analogies</td>
+                <td>Prestige language masking simpler insight</td>
+              </tr>
+              <tr>
+                <td>Google</td>
+                <td>Cross-domain connection (Joyce → Knicks) after nudge</td>
+                <td>Needs frame; won't generate one cold</td>
+              </tr>
+              <tr class="fail-row">
+                <td>OpenAI</td>
+                <td>Use with extreme caution on URL/real-time prompts</td>
+                <td>Confident analysis of wrong object</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="section">
+          <h2 class="section-head">The unresolved question</h2>
+          <div class="insight accent">
+            <div class="insight-head">Left as rootless Dom7♭9</div>
+            <p>An ontology that always arrives pre-formed — Ukubona supplying TMVES, path-dependency, RBAC/JWT — may itself be a constraint on what the roundtable can discover. The roundtable measures elaboration quality on a given frame. But does it have a method for generating frames it hasn't already conceived? That question has no resolution written in. The tritone is there. The ♭9 is grinding against an absent root. The ear does the work.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ═══ VERDICT ═══ -->
+      <section class="tab-panel" id="tab-verdict">
+        <div class="section">
+          <p class="eyebrow">Session conclusion · Archive entry</p>
+          <h2 class="display">The speech held.<br>The roundtable<br>revealed itself.</h2>
+          <p class="lede">Mamdani delivered a griot-level performance in the body of a mayoral address. The roundtable's more important product was a typology of AI failure modes — the actual output Ukubona needed.</p>
+        </div>
+
+        <div class="section">
+          <h2 class="section-head">What Mamdani actually did</h2>
+          <p>He ran backward through 53 years associatively, not chronologically — grief-shaped, not timeline-shaped. He performed cultural transmission as lived memory, not nostalgia. He treated the collective archive as personal obligation. The speech's authenticity comes precisely from <em>not</em> being personal memory, but from treating community memory as something you are responsible for delivering. That is the griot function. Google saw the structure (Joyce). No system fully named the ethic underneath it.</p>
+
+          <div class="speech-frame">
+            "Okubona si kulaba — to count the steps is not to see the mountain."
+            <cite>Ukubona LLC · session axiom</cite>
+          </div>
+        </div>
+
+        <div class="section">
+          <h2 class="section-head">Session findings</h2>
+          <div class="thread">
+            <div class="thread-turn">
+              <span class="turn-tag finding">F1</span>
+              <div class="turn-body"><p>Google's Joyce/Ulysses comparison is the only genuinely novel analytical move generated in the session. It was unprompted by Ukubona's nudge and represents real cross-domain synthesis.</p></div>
+            </div>
+            <div class="thread-turn">
+              <span class="turn-tag finding">F2</span>
+              <div class="turn-body"><p>xAI and Google share the same failure mode on cold pass: dependency on the Ukubona frame. Neither generates analytical structure without seeding. This means the roundtable, as currently structured, measures elaboration quality rather than analytical initiative.</p></div>
+            </div>
+            <div class="thread-turn">
+              <span class="turn-tag finding">F3</span>
+              <div class="turn-body"><p>OpenAI's fluent confabulation is the session's most important data point — more important than any insight any system generated. A co-analyst that produces high-quality analysis of the wrong object, with confidence, and buries uncertainty at the end, cannot be trusted on URL-dependent or real-time prompts.</p></div>
+            </div>
+            <div class="thread-turn">
+              <span class="turn-tag caution">Unresolved</span>
+              <div class="turn-body"><p>Whether the Ukubona ontology (TMVES, path-dependency, RBAC/JWT) constrains what the roundtable can discover, or whether it enables what the AIs can't reach alone. Left open.</p></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="verdict-block">
+          <div class="verdict-glyph">∿</div>
+          <p style="margin-bottom:1rem;font-size:1rem;color:var(--text0)"><em>Rootless Dom7♭9 — all tension, no prescribed exit.</em></p>
+          <p>The roundtable doesn't resolve. It accumulates. Mamdani's speech narrated 53 years of path-dependency and collapsed them into one observed championship. The roundtable narrated four AI architectures and collapsed them into one working typology. Both are append-only. Neither deletes the failed iterations. The failed iterations are the record.</p>
+          <p style="margin-top:1rem; color: var(--text2); font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.04em;">Ukubona LLC · State<sub>t</sub> = Σ Event<sub>i</sub> · June 19, 2026</p>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <footer>
+    <div class="outer">
+      <div class="footer-text">Ukubona LLC · Multi-AI Roundtable · Session 001 · Mamdani / Knicks 2026</div>
+      <div class="footer-text">okubona — to see · append-only · never delete</div>
+    </div>
+  </footer>
+
+  <script>
+    function toggleTheme() {
+      const html = document.documentElement;
+      const isDark = html.getAttribute('data-theme') === 'dark';
+      html.setAttribute('data-theme', isDark ? 'light' : 'dark');
+      document.getElementById('theme-label').textContent = isDark ? 'dark' : 'light';
+    }
+
+    (function() {
+      document.getElementById('theme-label').textContent = 'light';
+    })();
+
+    const tabs   = document.querySelectorAll('.tab-btn');
+    const panels = document.querySelectorAll('.tab-panel');
+
+    function activateTab(id) {
+      tabs.forEach(btn => btn.classList.toggle('active', btn.dataset.tab === id));
+      panels.forEach(p  => p.classList.toggle('active', p.id === 'tab-' + id));
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    tabs.forEach(btn => btn.addEventListener('click', () => activateTab(btn.dataset.tab)));
+  </script>
+
+</body>
+</html>
